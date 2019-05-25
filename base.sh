@@ -1,14 +1,11 @@
 !/bash/bin
 
-apt-get update && apt-get install -y apt-trasport-https
-
+apt-get update && apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-cat << EOF >/etc/apt/sources.list.d/kubernetes.list
-deb http://apt.kubernetes.io/ kubernetes-xenial main
+cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 apt-get update
-
-apt-get install -y kubelet=1.10.5-00 kubeadm=1.10.5-00 docker.io
-
-sysctl net.bridge.bridge-nf-call-iptables=1
+apt-get install -y kubelet kubeadm kubectl
+apt-mark hold kubelet kubeadm kubectl
 
